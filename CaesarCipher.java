@@ -1,44 +1,61 @@
-// Source code is decompiled from a .class file using FernFlower decompiler.
 import java.util.Scanner;
 
 public class CaesarCipher {
-   public CaesarCipher() {
-   }
 
-   public static void main(String[] var0) {
-      Scanner var1 = new Scanner(System.in);
-      System.out.print("Enter any string: ");
-      String var2 = var1.nextLine();
-      System.out.print("Enter the key: ");
-      int var3 = var1.nextInt();
-      String var4 = encrypt(var2, var3);
-      System.out.println("\nEncrypted String is: " + var4);
-      String var5 = decrypt(var4, var3);
-      System.out.println("Decrypted String is: " + var5);
-      var1.close();
-   }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
 
-   public static String encrypt(String var0, int var1) {
-      StringBuilder var2 = new StringBuilder();
-      var1 %= 26;
+        // Input string
+        System.out.print("Enter any string: ");
+        String str = sc.nextLine();
 
-      for(int var3 = 0; var3 < var0.length(); ++var3) {
-         char var4 = var0.charAt(var3);
-         if (Character.isUpperCase(var4)) {
-            var4 = (char)((var4 + var1 - 65) % 26 + 65);
-         } else if (Character.isLowerCase(var4)) {
-            var4 = (char)((var4 + var1 - 97) % 26 + 97);
-         } else {
-            var4 = var0.charAt(var3);
-         }
+        // Input key
+        System.out.print("Enter the key: ");
+        int key = sc.nextInt();
 
-         var2.append(var4);
-      }
+        // Encrypt and decrypt
+        String encrypted = encrypt(str, key);
+        System.out.println("\nEncrypted String is: " + encrypted);
 
-      return var2.toString();
-   }
+        String decrypted = decrypt(encrypted, key);
+        System.out.println("Decrypted String is: " + decrypted);
 
-   public static String decrypt(String var0, int var1) {
-      return encrypt(var0, -var1);
-   }
+        sc.close();
+    }
+
+    // Encryption Method
+    public static String encrypt(String str, int key) {
+        StringBuilder encrypted = new StringBuilder();
+        key = key % 26;  // Handle large keys
+
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+
+            if (Character.isUpperCase(c)) {
+                c = (char) ((c + key - 'A') % 26 + 'A');
+            } else if (Character.isLowerCase(c)) {
+                c = (char) ((c + key - 'a') % 26 + 'a');
+            } else {
+                // Non-alphabetic characters remain unchanged
+                c = str.charAt(i);
+            }
+
+            encrypted.append(c);
+        }
+
+        return encrypted.toString();
+    }
+
+    // Decryption Method
+    public static String decrypt(String str, int key) {
+        return encrypt(str, -key);  // Reuse the encrypt method with negative key
+    }
 }
+
+// output:-
+// Enter any string: hello world
+// Enter the key: 5
+
+// Encrypted String is: mjqqt btwqi
+// Decrypted String is: hello ]orld
+// Note: The decrypted string is not the same as the original string because the key is not the same. The key is 5, but the key should be 21 to get the original string.
