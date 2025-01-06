@@ -26,7 +26,7 @@ void main()
     // Second loop: Perform bitwise XOR with 127
     for (i = 0; i < len; i++) 
     {
-        str3[i] = str2[i] ^ 127;
+        str3[i] = str2[i] ^ 0;
         printf("%c", str3[i]);
     }
     printf("\n");
