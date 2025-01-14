@@ -14,5 +14,5 @@ printf("\n");
 }
 
 // output:-
-// hello World 
+// hello World
 // hello world
